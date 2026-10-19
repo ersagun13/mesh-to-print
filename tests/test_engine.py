@@ -340,7 +340,7 @@ class EngineTests(unittest.TestCase):
 
     def test_pipeline_measures_artifacts_and_no_overwrite(self):
         with tempfile.TemporaryDirectory() as tmp:
-            src = Path(tmp) / '<cube>.stl'
+            src = Path(tmp) / 'cube&part.stl'
             src.write_bytes(write_stl(cube()))
             before = hashlib.sha256(src.read_bytes()).hexdigest()
             out = Path(tmp) / 'out'
@@ -350,8 +350,8 @@ class EngineTests(unittest.TestCase):
             self.assertEqual(report['results'][0]['triangles'], 12)
             self.assertIn('repair', report)
             self.assertTrue((out / 'bundle.zip').is_file())
-            self.assertIn('&lt;cube&gt;', (out / 'report.html').read_text())
-            self.assertNotIn('<cube>', (out / 'report.html').read_text())
+            self.assertIn('cube&amp;part', (out / 'report.html').read_text())
+            self.assertNotIn('cube&part', (out / 'report.html').read_text())
             self.assertEqual((out / 'before.msh').read_bytes()[:4], b'MSH1')
             with self.assertRaises((MeshError, FileExistsError)):
                 process(src, out, {})
