@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+meshprint-workspace/
+examples/
+benchmark-inputs/
+benchmark-100k/
+benchmark-500k/
+cube-report/
+thin-report/
+vessel-report/
